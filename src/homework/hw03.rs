@@ -1,42 +1,44 @@
-fn draw_rhombus(n: usize) {
-    let mut result = String::new();
+const HEIGHT: i32 = 15; // Ширина (в діапазоні 10..=80)
+const WIDTH: i32 = 30; // Висота (в діапазоні 10..=80)
 
-    // upper half including middle
-    for i in 0..n {
-        // spaces before stars
-        let spaces = n - i - 1;
-        // stars count (2*i + 1)
-        let stars = 2 * i + 1;
+fn generate_envelope_image(height: i32, width: i32) -> String
+{
+    let mut stt = String::from("");
 
-        // add spaces
-        for _ in 0..spaces {
-            result.push(' ');
+    for x in 0..height{
+        for y in 0..width{
+            if x == 0 || x == height - 1 {//Верхня та нижня строка
+                stt.push('*')
+            }
+            else if y == 0 || y == width - 1 {//Ліва та права сторона
+                stt.push('*')
+            }
+
+            else if (y - 1) / 2 == x && y%2 == 1 && y<width/2 && x<height/2   {//верх-ліво
+                stt.push('*')
+            }
+            else if (width - y - 1) / 2 == x && y%2 == 0 && y>width/2 && x<height/2     {//верх-право
+                stt.push('*')
+            }
+            else if (height - x - 1)*2==y && y<width/2 && x>height/2 - 1    {//низ ліво
+                //let h = (height - x)*2;
+                //println!("{height}, {x}, {h}, {y}");
+                stt.push('*')
+            }
+            else if (height - x) * 2 == (width - y + 1)   && y>width/2 - 1 && x>height/2 - 1     {//низ право
+                stt.push('*')
+            }
+
+            else {
+                stt.push(' ')
+            }
         }
-        // add stars
-        for _ in 0..stars {
-            result.push('*');
-        }
-        result.push('\n');
+        stt.push('\n')
     }
-
-    // lower half
-    for i in (0..n-1).rev() {
-        let spaces = n - i - 1;
-        let stars = 2 * i + 1;
-
-        for _ in 0..spaces {
-            result.push(' ');
-        }
-        for _ in 0..stars {
-            result.push('*');
-        }
-        result.push('\n');
-    }
-
-    // print the entire rhombus at once
-    println!("{}", result);
+    return stt
 }
 
 fn main() {
-    draw_rhombus(3);
+    let x = generate_envelope_image(HEIGHT, WIDTH);
+    println!("{x}");
 }
