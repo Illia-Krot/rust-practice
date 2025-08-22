@@ -1,4 +1,4 @@
-fn row_shift(s: String, n: isize) -> String {
+fn rotate(s: String, n: isize) -> String {
     let len = s.len() as isize;
     if len == 0 {
         return s;
@@ -28,7 +28,7 @@ fn test() {
         .iter().copied()
         .for_each(|(n, exp)| {
             assert_eq!(
-                row_shift(s.to_string(), n), 
+                rotate(s.to_string(), n), 
                 exp.to_string());
    });
 }
