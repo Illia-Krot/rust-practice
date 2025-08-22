@@ -1,4 +1,4 @@
-pub fn swap_case(s: &str) -> String {
+fn invert_the_case(s: String) -> String {
     s.chars()
         .map(|c| {
             if c.is_lowercase() {
@@ -10,4 +10,27 @@ pub fn swap_case(s: &str) -> String {
             }
         })
         .collect()
+}
+
+#[test]
+fn test() {
+   let data =
+       [
+           ("Hello", "hELLO"),
+           ("Привіт", "пРИВІТ"),
+       ];
+
+
+   data
+       .iter()
+       .for_each(|(a, b)| {
+           assert_eq!(
+               invert_the_case(a.to_string()),
+               b.to_string()
+           );
+           assert_eq!(
+               invert_the_case(b.to_string()),
+               a.to_string()
+           );
+       });
 }
