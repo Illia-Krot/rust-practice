@@ -1,34 +1,19 @@
-fn row_shift(s: String, n: isize) -> String {
-    let len = s.len() as isize;
-    if len == 0 {
-        return s;
+pub fn is_prime(n: u64) -> bool {
+    if n <= 1 {
+        return false;
     }
-    let shift = ((n % len) + len) % len;
-    let split_at = (len - shift) as usize;
-    let (left, right) = s.split_at(split_at);
-    format!("{}{}", right, left)
-}
-
-#[test]
-fn test() {
-   let s = "abcdefgh";
-   let shifts = [
-       (0,  "abcdefgh"),
-       (8,  "abcdefgh"),
-       (-8, "abcdefgh"),
-       (1,  "habcdefg"),
-       (2,  "ghabcdef"),
-       (10, "ghabcdef"),
-       (-1, "bcdefgha"),
-       (-2, "cdefghab"),
-       (-10,"cdefghab"),
-   ];
-
-   shifts
-        .iter().copied()
-        .for_each(|(n, exp)| {
-            assert_eq!(
-                row_shift(s.to_string(), n), 
-                exp.to_string());
-   });
+    if n <= 3 {
+        return true;
+    }
+    if n % 2 == 0 || n % 3 == 0 {
+        return false;
+    }
+    let mut i = 5;
+    while i * i <= n {
+        if n % i == 0 || n % (i + 2) == 0 {
+            return false;
+        }
+        i += 6;
+    }
+    true
 }
