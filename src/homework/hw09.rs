@@ -1,23 +1,34 @@
-fn is_palindrome(x: i32) -> bool {
-    
-    let s = x.to_string();
-    
-    s == s.chars().rev().collect::<String>()
+fn row_shift(s: String, n: isize) -> String {
+    let len = s.len() as isize;
+    if len == 0 {
+        return s;
+    }
+    let shift = ((n % len) + len) % len;
+    let split_at = (len - shift) as usize;
+    let (left, right) = s.split_at(split_at);
+    format!("{}{}", right, left)
 }
 
 #[test]
 fn test() {
-   let data =
-       [
-           (123, false),
-           (121, true),
-           (1221, true),
-       ];
+   let s = "abcdefgh";
+   let shifts = [
+       (0,  "abcdefgh"),
+       (8,  "abcdefgh"),
+       (-8, "abcdefgh"),
+       (1,  "habcdefg"),
+       (2,  "ghabcdef"),
+       (10, "ghabcdef"),
+       (-1, "bcdefgha"),
+       (-2, "cdefghab"),
+       (-10,"cdefghab"),
+   ];
 
-
-   data
-       .iter()
-       .for_each(|(n, exp)| {
-           assert_eq!(is_palindrome(*n), *exp);
-       });
+   shifts
+        .iter().copied()
+        .for_each(|(n, exp)| {
+            assert_eq!(
+                row_shift(s.to_string(), n), 
+                exp.to_string());
+   });
 }
