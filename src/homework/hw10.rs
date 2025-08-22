@@ -1,4 +1,4 @@
-fn is_palindrome(x: i32) -> bool {
+fn is_palindrome(x: u32) -> bool {
     
     let s = x.to_string();
     
