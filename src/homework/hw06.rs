@@ -1,34 +1,13 @@
-pub fn draw_tree(triangles: usize) {
-    // Функція малює один "трикутник" ялинки заданого рівня (1..=triangles)
-    // Кожен трикутник — це кількість рядків рівна номеру трикутника, 
-    // ширина рядка залежить від останнього рядка ялинки.
-
-    let total_rows = (1..=triangles).map(|i| i).sum::<usize>();
-    // Найширший рядок — це ширина останнього трикутника (2 * triangles - 1)
-    // Помножити на кількість трикутників для ширини останнього "рівня"
-    let max_width = 2 * total_rows - 1;
-
-    // Функція для малювання окремого рядка ялинки (кількість зірок і максимальна ширина)
-    let print_row = |stars: usize| {
-        let padding = (max_width - stars) / 2;
-        let line = " ".repeat(padding) + &"*".repeat(stars);
-        println!("{}", line);
-    };
-
-    // Малюємо трикутники по черзі
-    // Кожен трикутник i містить i рядків
-    // у кожному рядку кількість зірок = 2 * рядок - 1
-    // Потім після кожного трикутника малюємо стовбур із 1 зірки посередині
-
-    for i in 1..=triangles {
-        for row in 1..=i {
-            let stars = 2 * row - 1;
-            print_row(stars);
-        }
-    }
+pub fn swap_case(s: &str) -> String {
+    s.chars()
+        .map(|c| {
+            if c.is_lowercase() {
+                c.to_uppercase().to_string()
+            } else if c.is_uppercase() {
+                c.to_lowercase().to_string()
+            } else {
+                c.to_string()
+            }
+        })
+        .collect()
 }
-
-fn main() {
-    draw_tree(5);
-}
-
