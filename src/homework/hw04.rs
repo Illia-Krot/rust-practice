@@ -1,14 +1,42 @@
-fn gcd(mut a: i32, mut b: i32) -> i32 {
-    while b != 0 {
-        let temp = b;
-        b = a % b;
-        a = temp;
+fn draw_rhombus(n: usize) {
+    let mut result = String::new();
+
+    // upper half including middle
+    for i in 0..n {
+        // spaces before stars
+        let spaces = n - i - 1;
+        // stars count (2*i + 1)
+        let stars = 2 * i + 1;
+
+        // add spaces
+        for _ in 0..spaces {
+            result.push(' ');
+        }
+        // add stars
+        for _ in 0..stars {
+            result.push('*');
+        }
+        result.push('\n');
     }
-    a.abs() 
+
+    // lower half
+    for i in (0..n-1).rev() {
+        let spaces = n - i - 1;
+        let stars = 2 * i + 1;
+
+        for _ in 0..spaces {
+            result.push(' ');
+        }
+        for _ in 0..stars {
+            result.push('*');
+        }
+        result.push('\n');
+    }
+
+    // print the entire rhombus at once
+    println!("{}", result);
 }
 
 fn main() {
-    let x = 60;
-    let y = 55;
-    println!("GCD of {} and {} is {}", x, y, gcd(x, y));
+    draw_rhombus(3);
 }
