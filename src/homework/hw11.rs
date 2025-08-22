@@ -24,7 +24,7 @@ pub fn min_adjacent_sum(data: &[i32]) -> Option<(usize, i32)> {
     Some((min_index, min_sum))
 }
 
-// Функція для гарного виводу в консоль
+// Функція виводу в консоль
 pub fn print_vector_with_min_pair(data: &[i32]) {
     // Вивід індексів
     print!("indexes:");
@@ -70,3 +70,4 @@ fn main() {
     let data = gen_random_vector(20);
     print_vector_with_min_pair(&data);
 }
+
